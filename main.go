@@ -3,13 +3,12 @@ package main
 import (
 	"context"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/mercadopago/sdk-go/pkg/config"
 	"github.com/mercadopago/sdk-go/pkg/payment"
 )
-
-const ACCESS_TOKEN string = "TEST-4452616593758483-070808-16b13697005f228aa2b359b6e84727a2-1534160175"
 
 type PaymentBody struct {
 	Token             string
@@ -31,8 +30,10 @@ func main() {
 
 	var reqBody PaymentBody
 
+	var accessToken string = os.Getenv("MERCADO_PAGO_ACCESS_TOKEN")
+
 	router.POST("/pay", func(ctx *gin.Context) {
-		config, err := config.New(ACCESS_TOKEN)
+		config, err := config.New(accessToken)
 		if err != nil {
 			ctx.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
