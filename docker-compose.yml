@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - 8080:8080
+    environment:
+      - MERCADO_PAGO_ACCESS_TOKEN=value
